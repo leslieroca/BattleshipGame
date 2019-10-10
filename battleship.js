@@ -12,17 +12,16 @@ var view = {
     cell.setAttribute("class", "miss");
   }
 };
-
-//testing the view:
-// view.displayMiss("00");
-// view.displayHit("34");
-// view.displayMiss("55");
-// view.displayHit("12");
-// view.displayMiss("25");
-// view.displayHit("26");
-
-// view.displayMessage("Tap tap, is this thing on?");
-///////////////////////////////////////////////////////////////////////////////////
+/*
+testing the view:
+view.displayMiss("00");
+view.displayHit("34");
+view.displayMiss("55");
+view.displayHit("12");
+view.displayMiss("25");
+view.displayHit("26");
+view.displayMessage("Tap tap, is this thing on?");
+*/
 
 var model = {
 	boardSize: 7,
@@ -63,3 +62,34 @@ var model = {
     return true;
   }
 };
+
+//Helper function to check for valid input
+function parseGuess(guess) {
+  var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+
+  if (guess === null || guess.length !== 2) {
+    alert("Oops, please enter a letter and a number on the board.");
+  } else {
+    var firstChar = guess.charAt(0);
+    var row = alphabet.indexOf(firstChar); //We convert the letter in a number(index). 
+    var column = guess.charAt(1);
+
+    if(isNaN(row) || isNaN(column)) {
+      alert("Oops, that isn't on the board.");
+    } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) { //Useful if want to increase the board size. 
+      alert("Oops, that's off the board!");
+    } else {
+      return row + column;
+    }
+  } 
+  return null;
+}
+/*
+// Testing parseGuess function
+console.log("Testing the parseGuess");
+console.log(parseGuess("A0"));
+console.log(parseGuess("B6"));
+console.log(parseGuess("G3"));
+console.log(parseGuess("H0")); // invalid input
+console.log(parseGuess("A7")); // invalid input
+*/
