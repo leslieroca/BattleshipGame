@@ -39,7 +39,7 @@ var model = {
       var ship = this.ships[i];
       var index = ship.locations.indexOf(guess);
       if(index >= 0) {
-        ships.hits[index] = "hit";
+        ship.hits[index] = "hit";
         view.displayHit(guess);   //Notify the view that we got a hit at the location in guess.
         view.displayMessage("HIT!");   //Ask the view to display the message "HIT!".
         if(this.isSunk(ship)) {
@@ -54,7 +54,7 @@ var model = {
     return false;
   },
   isSunk: function(ship) {
-    for (var i = 0; i < hists.length; i++) {
+    for (var i = 0; i < this.shipLength; i++) {
       if (ship.hits[i] !== "hit") {
         return false
       }
@@ -93,3 +93,32 @@ console.log(parseGuess("G3"));
 console.log(parseGuess("H0")); // invalid input
 console.log(parseGuess("A7")); // invalid input
 */
+
+var controller = {
+  guesses: 0,
+  processGuess: function(guess) {
+    var location = parseGuess(guess);
+    if (location) {
+      this.guesses++;
+      var hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+      }
+    }
+  }  
+};
+
+//Testing controller
+controller.processGuess("A0");
+
+controller.processGuess("A6");
+controller.processGuess("B6");
+controller.processGuess("C6");
+
+controller.processGuess("C4");
+controller.processGuess("D4");
+controller.processGuess("E4");
+
+controller.processGuess("B0");
+controller.processGuess("B1");
+controller.processGuess("B2");
