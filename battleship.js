@@ -108,6 +108,7 @@ var controller = {
   }  
 };
 
+/*
 //Testing controller
 controller.processGuess("A0");
 
@@ -122,3 +123,16 @@ controller.processGuess("E4");
 controller.processGuess("B0");
 controller.processGuess("B1");
 controller.processGuess("B2");
+*/
+
+//Adds event handler to the Fire! button.
+function init() {
+  var fireButton = document.getElementById("fireButton");
+  fireButton.onclick = handleFireButton;
+}
+
+//Guets player's guess from the form.
+function handleFireButton() {
+  var guessInput = document.getElementById("guessInput");
+  var guess = guessInput.value;
+}
