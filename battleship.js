@@ -70,8 +70,7 @@ function parseGuess(guess) {
   if (guess === null || guess.length !== 2) {
     alert("Oops, please enter a letter and a number on the board.");
   } else {
-    var firstChar = guess.charAt(0);
-    var row = alphabet.indexOf(firstChar); //We convert the letter in a number(index). 
+    var row = alphabet.indexOf(guess.charAt(0)); //We convert the letter in a number(index). 
     var column = guess.charAt(1);
 
     if(isNaN(row) || isNaN(column)) {
@@ -129,10 +128,23 @@ controller.processGuess("B2");
 function init() {
   var fireButton = document.getElementById("fireButton");
   fireButton.onclick = handleFireButton;
+  var guessInput = document.getElementById("guessInput");
+  guessInput.onkeypress = handleKeyPress;  // Handle RETURN key press event from the HTML input field.
 }
 
-//Guets player's guess from the form.
+//Gets player's guess from the form.
 function handleFireButton() {
   var guessInput = document.getElementById("guessInput");
   var guess = guessInput.value;
+  controller.processGuess(guess);
+
+  guessInput.value = "";
+}
+
+function handleKeyPress(e) {
+  var fireButton = document.getElementById("fireButton");
+  if (e.keyCode === 13) {
+    fireButton.click();
+    return false;
+  }
 }
