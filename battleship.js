@@ -20,8 +20,12 @@ var model = {
   fire: function(guess) {
     for (var i = 0; i < this.numShips; i++) {
       var ship = this.ships[i];
-      var index = ship.locations.indexOf(guess);
-      if(index >= 0) {
+			var index = ship.locations.indexOf(guess);
+			
+			if (ship.hits[index] = "hit") {
+				view.displayMessage("Oops, you already hit that location!");
+				return true;
+			} else if(index >= 0) {
         ship.hits[index] = "hit";
         view.displayHit(guess);   //Notify the view that we got a hit at the location in guess.
         view.displayMessage("HIT!");   //Ask the view to display the message "HIT!".
